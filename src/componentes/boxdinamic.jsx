@@ -144,7 +144,7 @@ export function DinamicBox({data , estado, dat}){
                                     setoverlays(false)
                                 }, 2000)
                                 
-                                userupdatepost(reaccionesUser.post, reaccionesUser.uid)
+                              userupdatepost(reaccionesUser.post, reaccionesUser.uid)
                                
                              }
                              else{
@@ -160,12 +160,12 @@ export function DinamicBox({data , estado, dat}){
                                 if (estado == 1) {
                                 console.log(confesion)
                                 setoverlays(true)
-                                await agregar(reaccionesUser.username, confesion,  mes, dia, hora, minutos, miid , reaccionesUser.universidad, reaccionesUser.verificado, multimedia, idmulti);
+                                await agregar(reaccionesUser.username, confesion,  mes, dia, hora, minutos, miid , 0, reaccionesUser.verificado, multimedia, idmulti);
                                 setTimeout(() => {
                                     setoverlays(false)
                                 }, 2000)
                                 
-                                userupdatepost(reaccionesUser.post, reaccionesUser.uid)
+                                await userupdatepost(reaccionesUser.post, reaccionesUser.uid)
                         
                                }else{
                               

@@ -19,12 +19,17 @@ import {
   signInAnonymously,
   signInWithPopup,
   GoogleAuthProvider,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from "firebase/auth";
 import { getMessaging, getToken } from 'firebase/messaging';
 import JSConfetti from 'js-confetti'
 import { getStorage } from "firebase/storage";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+
+import { getAnalytics, logEvent, isSupported } from "firebase/analytics";
+
 
 const jsConfetti = new JSConfetti()
 export function confeti(emogi){
@@ -49,6 +54,15 @@ const firebaseConfig = {
 };
                  
 const app = initializeApp(firebaseConfig);
+
+export let analytics = null;
+
+isSupported().then((supported) => {
+  if (supported) {
+    analytics = getAnalytics(app);
+  }
+});
+
 export const db = getFirestore(app);
 export let stado = true
 export let userUid = null;
@@ -175,7 +189,7 @@ export async function agregar(
     identi
   );
   await setDoc(identificadorDocRef, {
-    first: names,
+    first: verificacion ? "Anónimo" : names,
     last: descripcion,
     id: identi,
     coment: 0,
@@ -184,7 +198,7 @@ export async function agregar(
     hora: hora,
     minutos: minutos,
     reaccion: 0,
-    universidad: seleccion,
+    universidad: 0,
     verificado: verificacion,
     multimedia: multimedia,
     idmultimedia: idmultimedia
@@ -192,6 +206,7 @@ export async function agregar(
   });
    
   console.log("Confesion Publicada ✅");
+  
   let overlay = document.getElementById("overlay")
   var miParrafo = document.querySelector("#overlay p");
   overlay.classList.add("active")
@@ -294,7 +309,7 @@ export async function comentario(names, descripcion ,mes, dia, hora,minutos, sel
 
     // Utiliza await para esperar a que la operación de escritura se complete
     await setDoc(identificadorDocRef, {
-      first: names,
+      first: verificacion ? "Anónimo" : names,
       last: descripcion,
      
       
@@ -303,7 +318,7 @@ export async function comentario(names, descripcion ,mes, dia, hora,minutos, sel
       hora: hora,
       minutos: minutos,
     
-      universidad: seleccion,
+      universidad: 0,
       verificado: verificacion,
       multimedia: multimedia,
       idmultimedia: idmultimedia
@@ -422,16 +437,18 @@ export async function loginGoogle() {
         verificado: true
       });
     }
-
+         window.location.href="/";
     return result.user;
+  
 
   } catch (error) {
     console.error(error);
   }
 }
 
-import { signOut } from "firebase/auth";
+
 
 export async function cerrarSesion() {
     await signOut(auth);
+    window.location.href="/";
 }

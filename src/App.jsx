@@ -115,9 +115,9 @@ export function App() {
        Inicio
       </button> 
 
-      <button  onClick={() => handleBotonClick(3)}>
+      {/* <button  onClick={() => handleBotonClick(3)}>
         <img  width={"25px"} src="/ghost.svg" alt="" />
-      </button>
+      </button> */}
 
      {/*  <button  onClick={() =>handleBotonClick(4)}>
         <img  width={"25px"} src="/shop.png" alt="" />         
@@ -673,10 +673,7 @@ export function Theme() {
         ))}
       </div>
 
-      <div className="container">
-        <h1>Sobre Anonihub:</h1>
-        <p>Anonihub es una aplicación que te permite compartir confesiones de manera anónima. Con esta app, puedes escribir sobre cualquier tema , leer las confesiones de otros usuarios, interactuar con ellos. Es un espacio para expresarte libremente sin miedo a ser juzgado. ¡Una plataforma perfecta para desahogarte, conectar con otros y aprender de experiencias compartidas! 😊📝.</p>
-      </div>
+      
     </>
   );
 }
